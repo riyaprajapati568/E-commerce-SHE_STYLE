@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHE_STYLE - Women's Fashion E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <p>🎉 Free Shipping on Orders Above $50 | New Arrivals Every Week! ✨</p>
+    </div>
+
+    <!-- Header -->
+    <header>
+        
+        <nav>
+            <a href="#" class="logo">SHE_STYLE</a>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#products">New Arrivals</a></li>
+                <li><a href="#sale">Sale</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search products..." id="searchInput">
+            </div>
+
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="toggleWishlist()">
+                    <i class="far fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </button>
+                <button class="icon-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                </button>
+                <button class="icon-btn" onclick="toggleAuth()">
+                    <i class="far fa-user"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="blur-bg-img"></div>
+        <h1>Discover Your Style</h1><br>
+       <p>Exclusive Fashion Collection for Modern Women</p><br>
+        <button class="btn btn-primary" onclick="scrollToProducts()">Shop Now</button>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-grid">
+            <div class="category-card" onclick="filterByCategory('clothing')">
+                <!-- <i class="fas fa-tshirt"></i> -->
+                <img src="https://i.pinimg.com/736x/5a/27/6e/5a276e29bec1a38858a96abade07d04c.jpg" alt="">
+                <h3>Clothing</h3>
+                <p>Latest trends & styles</p>
+            </div>
+            <div class="category-card" onclick="filterByCategory('accessories')">
+                <!-- <i class="fas fa-gem"></i> -->
+                <img src="https://i.pinimg.com/1200x/ce/09/2f/ce092fac9b4a65abec5aa8ff54596f8b.jpg" alt="">
+                <h3>Accessories</h3>
+                <p>Complete your look</p>
+            </div>
+            <div class="category-card" onclick="filterByCategory('footwear')">
+                <!-- <i class="fas fa-shoe-prints"></i> -->
+                <img src="https://i.pinimg.com/736x/19/97/4d/19974d95a487a70264232eb35ebd91f4.jpg" alt="">
+                <h3>Footwear</h3>
+                <p>Step in style</p>
+            </div>
+            <div class="category-card" onclick="filterByCategory('beauty')">
+                <!-- <i class="fas fa-spray-can"></i> -->
+                <img src="https://i.pinimg.com/736x/6c/e5/56/6ce5560418699772831409578a652574.jpg" alt="">
+                <h3>Beauty</h3>
+                <p>Glow & shine</p>
+            </div>
+        </div>
+    </section>
+<a href="product.html"><button class="btn btn-primary" style="margin-left: 45%; margin-bottom: 30px;">View All Products</button></a>
+    <!-- Products Section -->
+    <!-- <section class="products" id="products">
+        <div class="products-container">
+            <h2 class="section-title">New Arrivals</h2>
+            
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                    <button class="filter-btn" onclick="filterProducts('clothing')">Clothing</button>
+                    <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
+                    <button class="filter-btn" onclick="filterProducts('footwear')">Footwear</button>
+                    <button class="filter-btn" onclick="filterProducts('beauty')">Beauty</button>
+                </div>
+                <select class="sort-select" onchange="sortProducts(this.value)">
+                    <option value="default">Sort By</option>
+                    <option value="priceLow">Price: Low to High</option>
+                    <option value="priceHigh">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="discount">Best Discount</option>
+                </select>
+            </div>
+
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-shopping-cart"></i> Shopping Cart</h2>
+                <button class="close-modal" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cartItems">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                    <button class="btn btn-primary" onclick="toggleCart()" style="margin-top: 15px;">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Sign In</h2>
+                <button class="close-modal" onclick="toggleAuth()">×</button>
+            </div>
+            <div id="userDisplay" style="display: none;"></div>
+            <form class="auth-form" id="authForm" onsubmit="handleAuth(event)">
+                <div class="form-group" id="nameGroup" style="display: none;">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-secondary" style="width: 100%;">
+                    <span id="authBtnText">Sign In</span>
+                </button>
+                <div class="form-toggle">
+                    <span id="toggleText">Don't have an account?</span>
+                    <a onclick="toggleAuthMode()">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="modal" id="wishlistModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="far fa-heart"></i> My Wishlist</h2>
+                <button class="close-modal" onclick="toggleWishlist()">×</button>
+            </div>
+            <div id="wishlistItems">
+                <div class="empty-cart">
+                    <i class="far fa-heart"></i>
+                    <p>Your wishlist is empty</p>
+                    <button class="btn btn-primary" onclick="toggleWishlist()" style="margin-top: 15px;">Browse Products</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About SHE_STYLE</h3>
+                <p>Your ultimate destination for trendy women's fashion. We bring you the latest styles and quality products at affordable prices.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Career</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get special offers and updates!</p>
+                <form onsubmit="subscribeNewsletter(event)" style="margin-top: 15px;">
+                    <input type="email" placeholder="Your email" required style="width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SHE_STYLE. All rights reserved. | Designed with ❤️ for Women</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>     
+</html>
+
+ 
